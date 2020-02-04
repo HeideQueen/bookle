@@ -1,7 +1,7 @@
 {
   "name": "bookle",
   "version": "1.0.0",
-  "description": "API Practice in React",
+  "description": "API practice with React",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {

@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-const SearchBar = () => {
+const SearchBar = ({ handleSearch }) => {
 	return (
 		<div>
 			<input type="text" />
-			<button>Search</button>
+			<button onClick={handleSearch}>Search</button>
 		</div>
 	);
 };
