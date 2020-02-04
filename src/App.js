@@ -6,23 +6,41 @@ import ResultsDisplay from './components/results-display/results-display.compone
 import './styles.css';
 
 export default function App() {
-	const [results, setResults] = useState([]);
+  const [input, setInput] = useState('');
+  const [results, setResults] = useState(null);
 
-	const handleSearch = () => {
-		setResults([
-			{
-				title: 'lord of the rings',
-				author: 'tolkien'
-			}
-		]);
-	};
+  const handleInput = event => setInput(event.target.value);
 
-	return (
-		<div className="App">
-			<h1>Bookle</h1>
-			<h2>Search by Book Title</h2>
-			<SearchBar handleSearch={handleSearch} />
-			<ResultsDisplay results={results} />
-		</div>
-	);
+  const handleSearch = async () => {
+    if (!input) return;
+
+    try {
+      const res = await fetch(
+        `https://openlibrary.org/search.json?title=${input}`
+      );
+
+      const data = await res.json();
+
+      setResults(data);
+    } catch (error) {
+      console.log('Something went wrong!', error);
+    }
+
+    setInput('');
+  };
+
+  console.log(results);
+
+  return (
+    <div className="App">
+      <h1>Bookle</h1>
+      <h2>Search by Book Title</h2>
+      <SearchBar
+        handleInput={handleInput}
+        handleSearch={handleSearch}
+        input={input}
+      />
+      <ResultsDisplay results={results} />
+    </div>
+  );
 }
