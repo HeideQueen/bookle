@@ -2,7 +2,7 @@ import React from 'react';
 
 import BookResult from '../book-result/book-result.component';
 
-const ResultsDisplay = ({ results }) => {
+const ResultsDisplay = ({ results, handleMoreInfo }) => {
   if (results) {
     const foundBooks = results.numFound;
     const books = results.docs.slice(0, 10);
@@ -12,14 +12,18 @@ const ResultsDisplay = ({ results }) => {
         <p>Displaying top 10 results from {foundBooks} found books:</p>
 
         {books.map(book => (
-          <BookResult key={book.isbn[0]} book={book} />
+          <BookResult
+            key={book.isbn[0]}
+            book={book}
+            handleMoreInfo={handleMoreInfo}
+          />
         ))}
       </div>
     );
   } else {
     return (
       <div>
-        <p>Waiting for your input...</p>
+        <h1>Searching...</h1>
       </div>
     );
   }
