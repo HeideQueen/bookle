@@ -23,7 +23,7 @@ const BookResult = ({ book, handleMoreInfo }) => {
       </p>
       <p>
         <strong>Year: </strong>
-        {book.publish_year[0]}
+        {book.first_publish_year}
       </p>
       <p>
         <button onClick={() => handleMoreInfo(book)}>More Info</button>

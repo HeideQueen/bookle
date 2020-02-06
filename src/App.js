@@ -20,6 +20,10 @@ export default function App() {
     setInput('');
   };
 
+  const backToResults = () => {
+    setCurrentPage('resultsPage');
+  };
+
   const handleSearch = async () => {
     if (!input) return;
 
@@ -78,7 +82,10 @@ export default function App() {
             input={input}
             backToHomepage={backToHomepage}
           />
-          <BookDetails currentBook={currentBook} />
+          <BookDetails
+            currentBook={currentBook}
+            backToResults={backToResults}
+          />
         </div>
       );
     default:
