@@ -9,11 +9,14 @@ import './styles.css';
 
 export default function App() {
   const [input, setInput] = useState('');
+  const [searchType, setSearchType] = useState('title');
   const [results, setResults] = useState(null);
   const [currentPage, setCurrentPage] = useState('landingPage');
   const [currentBook, setCurrentBook] = useState(null);
 
   const handleInput = event => setInput(event.target.value);
+
+  const handleSelect = event => setSearchType(event.target.value);
 
   const backToHomepage = () => {
     setCurrentPage('landingPage');
@@ -24,6 +27,11 @@ export default function App() {
     setCurrentPage('resultsPage');
   };
 
+  const handleMoreInfo = book => {
+    setCurrentPage('bookDetailsPage');
+    setCurrentBook(book);
+  };
+
   const handleSearch = async () => {
     if (!input) return;
 
@@ -32,7 +40,7 @@ export default function App() {
 
     try {
       const res = await fetch(
-        `https://openlibrary.org/search.json?title=${input}`
+        `https://openlibrary.org/search.json?${searchType}=${input}`
       );
 
       const data = await res.json();
@@ -43,22 +51,19 @@ export default function App() {
     }
   };
 
-  const handleMoreInfo = book => {
-    setCurrentPage('bookDetailsPage');
-    setCurrentBook(book);
-  };
-
   switch (currentPage) {
     case 'landingPage':
       return (
         <div className="App">
           <h1>Bookle</h1>
-          <h2>Search any book by title!</h2>
+          <h3>A Book Search Engine</h3>
           <SearchBar
             handleInput={handleInput}
             handleSearch={handleSearch}
+            handleSelect={handleSelect}
             input={input}
           />
+          <p>Powered by Open Library</p>
         </div>
       );
     case 'resultsPage':
@@ -67,7 +72,9 @@ export default function App() {
           <Navbar
             handleInput={handleInput}
             handleSearch={handleSearch}
+            handleSelect={handleSelect}
             input={input}
+            searchType={searchType}
             backToHomepage={backToHomepage}
           />
           <ResultsDisplay results={results} handleMoreInfo={handleMoreInfo} />
@@ -79,7 +86,9 @@ export default function App() {
           <Navbar
             handleInput={handleInput}
             handleSearch={handleSearch}
+            handleSelect={handleSelect}
             input={input}
+            searchType={searchType}
             backToHomepage={backToHomepage}
           />
           <BookDetails

@@ -1,9 +1,15 @@
 import React from 'react';
 
-const SearchBar = ({ handleInput, handleSearch, input }) => {
+const SearchBar = ({
+  handleInput,
+  handleSearch,
+  handleSelect,
+  input,
+  searchType
+}) => {
   return (
     <div>
-      <select name="search-type" id="search-type">
+      <select value={searchType} onChange={event => handleSelect(event)}>
         <option value="title">Title</option>
         <option value="author">Author</option>
       </select>
