@@ -13,7 +13,7 @@ const ResultsDisplay = ({ results, handleMoreInfo }) => {
 
         {books.map(book => (
           <BookResult
-            key={book.isbn[0]}
+            key={book.key}
             book={book}
             handleMoreInfo={handleMoreInfo}
           />

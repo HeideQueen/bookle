@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import SearchBar from './components/search-bar/search-bar.component';
 import ResultsDisplay from './components/results-display/results-display.component';
 import BookDetails from './components/book-details/book-details.component';
+import Navbar from './components/navbar/navbar.component';
 
 import './styles.css';
 
@@ -14,9 +15,15 @@ export default function App() {
 
   const handleInput = event => setInput(event.target.value);
 
+  const backToHomepage = () => {
+    setCurrentPage('landingPage');
+    setInput('');
+  };
+
   const handleSearch = async () => {
     if (!input) return;
 
+    setResults(null);
     setCurrentPage('resultsPage');
 
     try {
@@ -37,8 +44,6 @@ export default function App() {
     setCurrentBook(book);
   };
 
-  console.log(results);
-
   switch (currentPage) {
     case 'landingPage':
       return (
@@ -55,11 +60,11 @@ export default function App() {
     case 'resultsPage':
       return (
         <div>
-          <h1>Navbar will go here!</h1>
-          <SearchBar
+          <Navbar
             handleInput={handleInput}
             handleSearch={handleSearch}
             input={input}
+            backToHomepage={backToHomepage}
           />
           <ResultsDisplay results={results} handleMoreInfo={handleMoreInfo} />
         </div>
@@ -67,11 +72,11 @@ export default function App() {
     case 'bookDetailsPage':
       return (
         <div>
-          <h1>Navbar will go here!</h1>
-          <SearchBar
+          <Navbar
             handleInput={handleInput}
             handleSearch={handleSearch}
             input={input}
+            backToHomepage={backToHomepage}
           />
           <BookDetails currentBook={currentBook} />
         </div>
