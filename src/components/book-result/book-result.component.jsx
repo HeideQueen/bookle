@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-const BookResult = ({ book, handleMoreInfo }) => {
+import { Store } from '../../store/store';
+import { goToPage, setCurrentBook } from '../../store/actions';
+
+const BookResult = ({ book }) => {
+  const { dispatch } = useContext(Store);
+
+  const handleMoreInfo = () => {
+    goToPage('bookDetailsPage', dispatch);
+    setCurrentBook(book, dispatch);
+  };
+
   return (
     <div>
       {book.cover_edition_key ? (
@@ -26,7 +36,7 @@ const BookResult = ({ book, handleMoreInfo }) => {
         {book.first_publish_year}
       </p>
       <p>
-        <button onClick={() => handleMoreInfo(book)}>More Info</button>
+        <button onClick={handleMoreInfo}>More Info</button>
       </p>
     </div>
   );

@@ -1,25 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { Store } from '../../store/store';
+import { clearInput, goToPage } from '../../store/actions';
 
 import SearchBar from '../search-bar/search-bar.component';
 
-const Navbar = ({
-  handleInput,
-  handleSearch,
-  handleSelect,
-  input,
-  searchType,
-  backToHomepage
-}) => {
+const Navbar = () => {
+  const { state, dispatch } = useContext(Store);
+
+  const backToHomepage = () => {
+    goToPage('landingPage', dispatch);
+    clearInput(dispatch);
+  };
+
   return (
     <div>
       <button onClick={backToHomepage}>Bookle</button>
-      <SearchBar
-        handleInput={handleInput}
-        handleSearch={handleSearch}
-        handleSelect={handleSelect}
-        input={input}
-        searchType={searchType}
-      />
+      <SearchBar />
     </div>
   );
 };

@@ -1,7 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import App from "./App";
+import { StoreProvider } from './store/store';
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+import App from './App';
+
+const app = (
+  <StoreProvider>
+    <App />
+  </StoreProvider>
+);
+
+const rootElement = document.getElementById('root');
+
+ReactDOM.render(app, rootElement);

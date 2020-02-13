@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { Store } from '../../store/store';
 
 import BookResult from '../book-result/book-result.component';
 
-const ResultsDisplay = ({ results, handleMoreInfo }) => {
+const ResultsDisplay = () => {
+  const {
+    state: { results }
+  } = useContext(Store);
+
   if (results) {
     const foundBooks = results.numFound;
     const books = results.docs.slice(0, 10);
@@ -12,11 +18,7 @@ const ResultsDisplay = ({ results, handleMoreInfo }) => {
         <p>Displaying top 10 results from {foundBooks} found books:</p>
 
         {books.map(book => (
-          <BookResult
-            key={book.key}
-            book={book}
-            handleMoreInfo={handleMoreInfo}
-          />
+          <BookResult key={book.key} book={book} />
         ))}
       </div>
     );

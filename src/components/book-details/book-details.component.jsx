@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-const BookDetails = ({ currentBook, backToResults }) => {
+import { Store } from '../../store/store';
+import { goToPage } from '../../store/actions';
+
+const BookDetails = () => {
+  const {
+    state: { currentBook },
+    dispatch
+  } = useContext(Store);
+
+  const backToResults = () => {
+    goToPage('resultsPage', dispatch);
+  };
+
   let book = currentBook;
 
   if (book) {
